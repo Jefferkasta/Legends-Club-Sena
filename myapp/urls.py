@@ -14,6 +14,7 @@ urlpatterns = [
     path('profileAdmin/<int:id>', viewsAdmin.editUser, name='editUser'),
     path('profileAdmin/new-superuser/', viewsAdmin.createSuperuser),
     path('profileAdmin/new-artista/', viewsAdmin.createArtist),
+    path('profileAdmin/<int:id>', viewsAdmin.deleteArtist, name='deleteArtist'),
     path('articulos/', viewsAdmin.articulos, name='articulos'),  # URL-VISTA//MUESTRA DATOS TABLA ARTICULOS    
     path('articulos/crea_articulos/', viewsAdmin.crea_articulos, name='crea_articulos'),  # URL-VISTA// CREA ARTICULOS
     

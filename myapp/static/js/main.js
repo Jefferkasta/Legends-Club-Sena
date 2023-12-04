@@ -139,7 +139,7 @@
             data: admin,
             // headers: { 'X-CSRF-TOKEN': formAdmin.get('csrfmiddlewaretoken') }
         }).done(function(e){
-            let modal = $('#modal-nuevoAdmin');
+            let modal = $('#modal-newAdmin');
             modal.modal('hide');
             modal.css('display','none');
             modal.removeClass('show');
@@ -178,7 +178,8 @@
             data: artist,
             // headers: { 'X-CSRF-TOKEN': formAdmin.get('csrfmiddlewaretoken') }
         }).done(function(e){
-            let modal = $('#modal-nuevoAdmin');
+            console.log(e);
+            let modal = $('#modal-newArtist');
             modal.modal('hide');
             modal.css('display','none');
             modal.removeClass('show');

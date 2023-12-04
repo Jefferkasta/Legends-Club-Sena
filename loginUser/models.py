@@ -55,7 +55,7 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = ['identificationUser', 'firstnameUser','lastnameUser','phoneUser','ageUser'] #correo y contraseña son requeridos por defecto.
 
     def __str__(self):
-        return f'{self.firstnameUser},{self.lastnameUser}'
+        return f'{self.identificationUser},{self.firstnameUser},{self.lastnameUser},{self.phoneUser},{self.appointmentUser},{self.emailUser},'
     
     def has_perm(self, perm, obj=None): 
         return True

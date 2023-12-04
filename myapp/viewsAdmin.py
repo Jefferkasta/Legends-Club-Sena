@@ -14,14 +14,12 @@ from django.contrib import messages
 def profile(request):
     print(request)
     users = User.objects.filter(adminUser=0)
-    articulo = list(Article.objects.values())
-    # artists = list(Artist.objects.values())
-    # artists = list(Artist.objects.select_related('id').values_list(User.firstnameUser,User.lastnameUser))
-    # print(artists)
+    asticles = list(Article.objects.values())
+    artists = list(Artist.objects.values())
     context =   {
         'users': users,
-        'articulo': articulo,
-        # 'artista': artists,
+        'asticles': asticles,
+        'artists': artists,
         }
     messages.add_message(request, messages.SUCCESS, 'admin creado')
     return render(request,'profileAdmin.html', context)
@@ -56,15 +54,20 @@ def createArtist(request):  # LOGIN - REGISTRO
                                    experienceArtist = request.POST['artistexperience[]'],
                                    nationalityArtist = request.POST['artistnationality[]'],
                                    )
-                artist.save()
                 messages.add_message(request, messages.SUCCESS, 'admin creado')
-                return HttpResponse("admin creado", request)
+                return JsonResponse({'response':"artista creado"})
             except IntegrityError as e:
                 print("error ",f"IntegrityError: {e}")
                 messages.add_message(request, messages.ERROR, 'correo admin ya existe')
                 return HttpResponse("correo artista ya existe", request)
-
-        return redirect(request, 'profileAdmin')
+    
+def deleteArtist(request, id):
+    if request.method == 'POST':
+        result = Artist.objects.filter(id=id).delete()
+        print("ESTE "+result)
+        return redirect("/profileAdmin")
+    else:
+        return
 
 def crea_articulos(request):
     if request.method == 'GET':
