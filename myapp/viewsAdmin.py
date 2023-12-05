@@ -14,11 +14,11 @@ from django.contrib import messages
 def profile(request):
     print(request)
     users = User.objects.filter(adminUser=0)
-    asticles = list(Article.objects.values())
+    articles = list(Article.objects.values())
     artists = list(Artist.objects.values())
     context =   {
         'users': users,
-        'asticles': asticles,
+        'articles': articles,
         'artists': artists,
         }
     messages.add_message(request, messages.SUCCESS, 'admin creado')
