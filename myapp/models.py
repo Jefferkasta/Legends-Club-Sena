@@ -7,7 +7,7 @@ from loginUser.models import User
 class Artist(models.Model):
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     stileTattoArtist = models.CharField(max_length=80, null = True)
-    experienceArtist = models.IntegerField(null = True)
+    experienceArtist = models.CharField(max_length=3, null = True)
     nationalityArtist = models.CharField(max_length=80, null = True)
     createdArtist = models.DateTimeField(default=timezone.now, blank=True)
     updatedArtist = models.DateTimeField(null=True, blank=True)

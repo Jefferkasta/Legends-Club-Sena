@@ -25,8 +25,19 @@ SECRET_KEY = 'django-insecure-6grq4&-9d8-%*-ogw(@2nx^kzugms5vnusk1ee^ez9j8*=*(3$
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# PORT ='8081'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CORS_ALLOWED_ORIGINS = []
+
+CORS_ORIGINS_ALLOW_ALL = True
+
+CORS_ORIGINS_WHITELIST=(
+    'http://localhost:8000',
+    'http://localhost:9000',
+    'http://192.168.0.36:9000'
+)
 
 
 # Application definition
@@ -38,6 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework',
+    'api',
     'loginUser',
     'myapp',
 ]
@@ -47,12 +61,14 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'legend_club.urls'
+
 
 TEMPLATES = [
     {
