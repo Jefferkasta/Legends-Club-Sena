@@ -35,11 +35,19 @@
                     <p class="pl-4 border-left border-danger text-light">Lorem descriptions ipsum dolor sit amet consectetur adipisicing elit. Quis amet deserunt facilis modi ducimus deleniti soluta id similique tempore non, laborum placeat, suscipit nostrum ipsum sequi! Reprehenderit aut soluta animi.</p>
                     <div class="col-12">
                         <div class="w-100 bg-dark text-center p-4">
-                            <!-- <a class="btn btn-primary">Contactar</a> -->
+                            {% if user.is_authenticated %} 
                             <a class="btn btn-danger" href="https://wa.me/3208694401" target="_blank">contactar whatsap</a>
+                            {% else %}
+                            <a class="btn btn-danger" href="/signin" target="_blank">contactar whatsap</a>
+                            {% if user.is_authenticated %}
+                            <a class="btn btn-danger" href="https://wa.me/3208694401" target="_blank">contactar whatsap</a>
+
+                            {% endif %} 
+                            {% endif %} 
+
                         </div>
                     </div>
-                </div>
+                </div
             </div>
         </div>
         
@@ -120,10 +128,6 @@
                                 
                             </div>
                         </div>
-                    </div>
-                    <div class="w-100 bg-white text-center p-4">
-                        <!-- <a class="btn btn-primary">Contactar</a> -->
-                        <a class="btn btn-danger" href="https://wa.me/3208694401" target="_blank">contactar whatsap</a>
                     </div>
                 </div>
             </div>

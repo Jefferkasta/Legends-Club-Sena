@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+# from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.db import IntegrityError
-from django.contrib.auth import login, logout, authenticate
+# from django.contrib.auth import login, logout, authenticate
 from loginUser.models import User
 from .forms import formArtic
 from .models import Article, Artist
@@ -31,7 +31,8 @@ def createSuperuser(request):
         # return HttpResponse("admin creado", request)
         if request.POST['passwlogin[]'] == request.POST['confirmpasswlogin[]']:  # OBTENIENDO DATOS
             try:
-                User.operation.create_superuser(emailUser=request.POST['useremail[]'],
+                User.operation.create_superuser(identificationUser=request.POST['useridentification[]'],
+                                                emailUser=request.POST['useremail[]'],
                                                 firstnameUser=request.POST['userfirstname[]'],
                                                 lastnameUser=request.POST['userlastname[]'],
                                                 ageUser=request.POST['userage[]'],

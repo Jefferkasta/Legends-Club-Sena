@@ -10,7 +10,7 @@
     <meta content="Tienda de tatuajes" name="description">
 
     <!-- Favicon -->
-    <!-- <link href="{% static '/img/logo.jpg'%}" rel="icon"> -->
+    <link href="{% static '/img/fabicon.png'%}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -51,6 +51,7 @@
                     <a href="#contact" class="nav-item nav-link text-light">Contacto</a>
                 </div>
                 {% if user.is_authenticated %}
+                <a href="/agendarCita" class="btn btn-outline-light d-none d-lg-block">Agenda cita</a>
                 <a href="/logout" class="btn btn-outline-light d-none d-lg-block">cerrar sesión</a>
                 {% if user.adminUser%}
                 <a href="/profileAdmin" class="btn btn-outline-light d-none d-lg-block">{{user.firstnameUser}}</a>
@@ -258,7 +259,7 @@
                                   </svg></a>
                                 <a class="btn btn-outline-primary btn-square mr-2" href="https://www.facebook.com/JefferTattooColombia"><i
                                         class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-primary btn-square mr-2" href="#"><i
+                                <a class="btn btn-outline-primary btn-square mr-2" href="https://wa.me/3208694401"><i
                                         class="fab  fa-whatsapp"></i></a>
                                 <a class="btn btn-outline-primary btn-square" href="https://www.instagram.com/_jeffer_tattoo_/?hl=es"><i
                                         class="fab fa-instagram"></i></a>
@@ -498,7 +499,7 @@
                             <li class="h6 py-1"><i class="far fa-circle text-primary mr-3"></i>Domingo : Cerrado</li>
                         </ul>
                         {% if user.is_authenticated %} 
-                        <a href="/agendarCita" class="btn btn-primary mt-2">Apartar cita</a>
+                        <a href="#team" class="btn btn-primary mt-2">Apartar cita</a>
                         {% else %}
                         <a href="/signin" class="btn btn-primary mt-2">Apartar ccita</a>
                         {% endif %}  
