@@ -81,7 +81,8 @@ def detailArtist(request):
     
     return render(request,'detail-artist.html')
 
-
+def stylesTattoo(request):      #  styles Tattoo
+    return render(request, 'styles.html')
 
 # ------------ SUPER USUARIO -------------#
 # USUARIO = JFR

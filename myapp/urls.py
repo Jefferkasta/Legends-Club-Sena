@@ -19,5 +19,7 @@ urlpatterns = [
     path('profileAdmin/delete-artist/<int:id>/', viewsAdmin.deleteArtist, name='deleteArtist'),
     path('articulos/', viewsAdmin.articulos, name='articulos'),   
     path('articulos/crea_articulos/', viewsAdmin.crea_articulos, name='crea_articulos'),
+    path('stylestattoo/', views.stylesTattoo, name='stylesTattoo'),
+    
     
 ]
