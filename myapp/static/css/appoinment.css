@@ -1,0 +1,14 @@
+/* Estilos para dar formato al calendario */
+.calendar {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 300px;
+}
+.calendar th, .calendar td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+.calendar th {
+    background-color: #f2f2f2;
+}

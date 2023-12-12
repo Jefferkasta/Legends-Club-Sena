@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
@@ -24,13 +24,42 @@ def profile(request):
                 'dateAppoinment' : row.timeAppointment,
                 'descriptionAppoinment' : row.descriptionAppointment,
                 'nameArtist' : row.idArtist.idUser.firstnameUser+'\n'+row.idArtist.idUser.lastnameUser,
+                'identificationArtist' : row.idArtist.idUser.identificationUser,
                 'phoneUser' : row.idUser.phoneUser,
                 'emailUser' : row.idUser.emailUser
             }
             appoinments.append(appointmentDict)
+        
+        # load calendar
+        # Obtener fecha actual
+        fecha_actual = datetime.now()
+        # Establecer el primer día del mes y el último día del mes
+        primer_dia = datetime(fecha_actual.year, fecha_actual.month, 1)
+        ultimo_dia = datetime(fecha_actual.year, fecha_actual.month, 1) - timedelta(days=1)
+        # Generar lista con los días del mes
+        dias_del_mes = []
+        date = 1
+
+        monthText = [
+        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ]
+
+        for i in range(6):
+            semana = []
+            for j in range(7):
+                if i == 0 and j < primer_dia.weekday():
+                    semana.append('')
+                elif date > ultimo_dia.day:
+                    break
+                else:
+                    semana.append(date)
+                    date += 1
+            dias_del_mes.append(semana)
+
         context =   {
-            # 'users': users,
-            # 'articles': articles,
+            'mes': monthText[fecha_actual.month-1],
+            'dias_del_mes': dias_del_mes,
             'appoinments': appoinments,
             }
         return render(request,'profileArtist.html', context)

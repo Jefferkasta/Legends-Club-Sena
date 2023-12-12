@@ -12,6 +12,7 @@ urlpatterns = [
     path('signin/', views.signin, name='signin'),
     path('detail-artist/', views.detailArtist,name='detailartist'),
     path('profileUser/', views.profileUser,name='profileUser'),
+    path('calendar/', viewsAdmin.calendar,name='calendar'),
     # url profileAdmin
     path('profileAdmin/', viewsAdmin.profile, name='profileadmin'),
     path('profileAdmin/edit-user/<int:id>/', viewsAdmin.editUser, name='editUser'),

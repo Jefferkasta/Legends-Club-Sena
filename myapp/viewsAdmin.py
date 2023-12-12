@@ -1,3 +1,5 @@
+from datetime import datetime
+from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.db import IntegrityError
@@ -31,21 +33,75 @@ def profile(request):
                 'emailUser' : row.idUser.emailUser
             }
             appoinments.append(appointmentDict)
+        # load calendar
+        # Obtener fecha actual
+        fecha_actual = datetime.now()
 
+        # Establecer el primer día del mes y el último día del mes
+        primer_dia = datetime(fecha_actual.year, fecha_actual.month, 1)
+        ultimo_dia = datetime(fecha_actual.year, fecha_actual.month, 1) - timedelta(days=1)
+
+        # Generar lista con los días del mes
+        dias_del_mes = []
+        date = 1
+
+        monthText = [
+        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ]
+
+        for i in range(6):
+            semana = []
+            for j in range(7):
+                if i == 0 and j < primer_dia.weekday():
+                    semana.append('')
+                elif date > ultimo_dia.day:
+                    break
+                else:
+                    semana.append(date)
+                    date += 1
+            dias_del_mes.append(semana)
         context =   {
+            'mes': monthText[fecha_actual.month-1],
+            'dias_del_mes': dias_del_mes,
             'appoinments': appoinments,
             'users': users,
             'articles': articles,
             'artists': artists,
             }
-        for article in articles:
-
-            print(article['imageArticle'])
+        
 
         messages.add_message(request, messages.SUCCESS, 'admin creado')
         return render(request,'profileAdmin.html', context)
     else:
         return render(request,'index.html')
+    
+def calendar(request):
+    # Obtener fecha actual
+    fecha_actual = datetime.now()
+
+    # Establecer el primer día del mes y el último día del mes
+    primer_dia = datetime(fecha_actual.year, fecha_actual.month, 1)
+    ultimo_dia = datetime(fecha_actual.year, fecha_actual.month, 1) - timedelta(days=1)
+
+    # Generar lista con los días del mes
+    dias_del_mes = []
+    date = 1
+
+    for i in range(6):
+        semana = []
+        for j in range(7):
+            if i == 0 and j < primer_dia.weekday():
+                semana.append('')
+            elif date > ultimo_dia.day:
+                break
+            else:
+                semana.append(date)
+                date += 1
+        dias_del_mes.append(semana)
+    print(dias_del_mes)
+    # Pasar la información al template
+    return render(request, 'calendar.html', {'dias_del_mes': dias_del_mes})
 
 @login_required
 def createSuperuser(request):

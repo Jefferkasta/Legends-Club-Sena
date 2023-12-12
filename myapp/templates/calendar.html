@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendario</title>
+    <style>
+        /* Estilos para dar formato al calendario */
+        .calendar {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 300px;
+        }
+        .calendar th, .calendar td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .calendar th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calendario</h2>
+    <table class="calendar">
+        <thead>
+            <tr>
+                <th>Domingo</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+                <th>Sábado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for semana in dias_del_mes %}
+            <tr>
+                {% for dia in semana %}
+                <td>{{ dia }}</td>
+                {% endfor %}
+            </tr>
+            {{semana}}
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

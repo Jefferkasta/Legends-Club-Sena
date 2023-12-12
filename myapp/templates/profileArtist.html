@@ -25,7 +25,7 @@
 
 <body>
     {% block content %}
-    <div class="container" style="margin-top: 84px;">
+    <div class="container-fluid" style="margin-top: 84px;">
         <div class="bg-dark d-flex justify-content-center">
             <span class="nav-link disabled " style="color: white; font-size: 20px; height: 50px;" tabindex="0" id=""
                     data-toggle="tab" href="" role="tab" aria-controls="tab1" aria-selected="false">
@@ -52,13 +52,38 @@
                     role="tab" aria-controls="tab3" aria-selected="false">Gestionar Perfil</a>
             </li>
         </ul>
-        <div class="float-end">
+        <!-- <div class="float-start">
             <span class="fs-4 text-dark">{{user.firstnameUser}}&nbsp;{{user.lastnameUser}}</span>
-        </div>
+        </div> -->
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+            <div class="row d-flex tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                 <!-- manager Artist -->
-                <div class="container">
+                <div class="container-fluid flex-grow-1 col-lg-2">
+                    <h4>Disponibilidad {{mes}}</h4>
+                    <table class="calendar border">
+                        <thead class="border">
+                            <tr class="border">
+                                <th class="border">Dom</th>
+                                <th class="border">Lun</th>
+                                <th class="border">Mar</th>
+                                <th class="border">Mié</th>
+                                <th class="border">Jue</th>
+                                <th class="border">Vie</th>
+                                <th class="border">Sáb</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for semana in dias_del_mes %}
+                            <tr class="border">
+                                {% for dia in semana %}
+                                <td class="border">{{ dia }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container flex-grow-1 col-lg-10">
                     <h1>Gestión de Citas</h1>
                     <div class="row">
                         <div class="col-lg-12 mb-2">
@@ -146,78 +171,80 @@
                                 </tr>
                             </thead>
                             {% for appoinment in appoinments %}
-                            <tbody>
-                                <tr>
-                                    <th scope="row">{{appoinment.id}}</th>
-                                    <td>{{appoinment.identificationUser}}</td>
-                                    <td>{{appoinment.nameUser}}</td>
-                                    <td>{{appoinment.dateAppoinment}}</td>
-                                    <td>{{appoinment.descriptionAppoinment}}</td>
-                                    <td>{{appoinment.nameArtist}}</td>
-                                    <td>{{appoinment.phoneUser}}</td>
-                                    <td>{{appoinment.emailUser}}</td>
-                                    <td class="row col-lg-12">
-                                        <div class="col-lg-5">
-                                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                                data-bs-title="modificar" data-bs-toggle="modal"
-                                                data-bs-target="#modal-appoinment{{ forloop.counter }}"><i
-                                                    class="fas fa-edit"></i></button>
-                                        </div>
-                                        <div class="col-lg-7">
-                                            <form action="{%url 'deleteAppoinment' appoinment.id %}" method="POST">
-                                                {% csrf_token %}
-                                                <button class="btn btn-danger btn-block" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" data-bs-toggle="modal"
-                                                    data-bs-title="eliminar"><i class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <!-- Modal -->
-                            <div class="modal fade" id="modal-appoinment{{ forloop.counter }}" tabindex="-1"
-                                aria-labelledby="modal-appoinment" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="h1-modal">Modificar Cita</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="container row">
-                                                <div class="col-lg-12">
-                                                    <form action="{%url 'editAppoinment' appoinment.id %}"
-                                                        method="POST">
-                                                        {% csrf_token %}
-                                                        <div class="form-row">
-                                                            <div class="col-sm-12">
-                                                                <label for=""
-                                                                    class="form-label"><Strong>Codigo&nbsp;{{appoinment.id}}</Strong></label>
+                                {% if appoinment.identificationArtist == user.identificationUser %}
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">{{appoinment.id}}</th>
+                                        <td>{{appoinment.identificationUser}}</td>
+                                        <td>{{appoinment.nameUser}}</td>
+                                        <td>{{appoinment.dateAppoinment}}</td>
+                                        <td>{{appoinment.descriptionAppoinment}}</td>
+                                        <td>{{appoinment.nameArtist}}</td>
+                                        <td>{{appoinment.phoneUser}}</td>
+                                        <td>{{appoinment.emailUser}}</td>
+                                        <td class="row col-lg-12">
+                                            <div class="col-lg-5">
+                                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                                    data-bs-title="modificar" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-appoinment{{ forloop.counter }}"><i
+                                                        class="fas fa-edit"></i></button>
+                                            </div>
+                                            <div class="col-lg-7">
+                                                <form action="{%url 'deleteAppoinment' appoinment.id %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <button class="btn btn-danger btn-block" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" data-bs-toggle="modal"
+                                                        data-bs-title="eliminar"><i class="fas fa-trash-alt"></i></button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <!-- Modal -->
+                                <div class="modal fade" id="modal-appoinment{{ forloop.counter }}" tabindex="-1"
+                                    aria-labelledby="modal-appoinment" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="h1-modal">Modificar Cita</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container row">
+                                                    <div class="col-lg-12">
+                                                        <form action="{%url 'editAppoinment' appoinment.id %}"
+                                                            method="POST">
+                                                            {% csrf_token %}
+                                                            <div class="form-row">
+                                                                <div class="col-sm-12">
+                                                                    <label for=""
+                                                                        class="form-label"><Strong>Codigo&nbsp;{{appoinment.id}}</Strong></label>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-row">
-                                                            <div class="col-sm-12">
-                                                                <label for="txt-descriptionAppoinment"
-                                                                    class="form-label">Descripción</label>
-                                                                <textarea class="form-control" type="text" class="form-control"
-                                                                    name="txt-descriptionAppoinment">{{appoinment.descriptionAppoinment}}</textarea>
+                                                            <div class="form-row">
+                                                                <div class="col-sm-12">
+                                                                    <label for="txt-descriptionAppoinment"
+                                                                        class="form-label">Descripción</label>
+                                                                    <textarea class="form-control" type="text" class="form-control"
+                                                                        name="txt-descriptionAppoinment">{{appoinment.descriptionAppoinment}}</textarea>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-row mt-4">
-                                                            <div class="col-sm-12 col-lg-12">
-                                                                <button
-                                                                    class="btn btn-danger btn-block">guardar</button>
+                                                            <div class="form-row mt-4">
+                                                                <div class="col-sm-12 col-lg-12">
+                                                                    <button
+                                                                        class="btn btn-danger btn-block">guardar</button>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </form>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- end Modal -->
+                                <!-- end Modal -->
+                                {% endif %}
                             {% endfor %}
                         </table>
                     </div>
